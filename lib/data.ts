@@ -5,7 +5,7 @@ export const personalInfo = {
   tagline: 'Java Developer · Backend Engineer · Cloud-Native Systems',
   bio: "Senior Software Engineer with 4+ years of experience building enterprise-grade backend systems and microservices. Currently contributing to ADP's Smart Compliance Canada platform as a consultant. I specialize in Java, Spring Boot, and cloud-native architectures — passionate about clean code, scalable systems, and engineering solutions that matter.",
   email: 'vinodyedla678@gmail.com',
-  phone: '+91 XXXXXXXXXX',
+  phone: '+91 9381063388',
   location: 'Hyderabad, India',
   github: 'https://github.com/Vinod678',
   linkedin: 'https://linkedin.com/in/vinod-yedla',

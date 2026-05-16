@@ -9,6 +9,7 @@ import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 import ScrollProgress from '@/components/ScrollProgress'
 import ResumeModal from '@/components/ResumeModal'
+import CommandPalette from '@/components/CommandPalette'
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <Contact />
       <Footer />
       <ResumeModal />
+      <CommandPalette />
     </main>
   )
 }

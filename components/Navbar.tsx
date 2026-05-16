@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import { HiSun, HiMoon } from 'react-icons/hi'
 import { RiMenuLine, RiCloseLine } from 'react-icons/ri'
-import { FiFileText } from 'react-icons/fi'
+import { FiFileText, FiSearch } from 'react-icons/fi'
 import { personalInfo } from '@/lib/data'
 
 const LINKS = [
@@ -93,11 +93,33 @@ export default function Navbar() {
             )}
 
             <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-palette'))}
+              className="hidden md:inline-flex items-center gap-2 px-3 py-1.5 text-xs rounded-lg border border-slate-700 text-slate-500 hover:border-slate-600 hover:text-slate-400 transition-all font-mono"
+              aria-label="Open command palette"
+            >
+              <FiSearch className="w-3 h-3" />
+              <span>Search</span>
+              <span className="ml-0.5 flex items-center gap-0.5">
+                <kbd className="px-1 py-0.5 rounded text-[9px] bg-slate-800/60 border border-slate-700 text-slate-500 font-mono">⌘</kbd>
+                <kbd className="px-1 py-0.5 rounded text-[9px] bg-slate-800/60 border border-slate-700 text-slate-500 font-mono">K</kbd>
+              </span>
+            </button>
+
+            <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-resume'))}
               className="hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10 hover:border-indigo-400/70 transition-all"
             >
               <FiFileText className="w-3.5 h-3.5" />
               Resume
+            </button>
+
+            {/* Mobile: search icon */}
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-palette'))}
+              className="md:hidden p-2 text-slate-400 hover:text-white transition-colors"
+              aria-label="Open command palette"
+            >
+              <FiSearch className="w-4 h-4" />
             </button>
 
             <button
@@ -127,6 +149,26 @@ export default function Navbar() {
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 220 }}
             >
+              {/* Search entry */}
+              <motion.button
+                onClick={() => {
+                  setOpen(false)
+                  setTimeout(() => window.dispatchEvent(new CustomEvent('open-palette')), 150)
+                }}
+                className="flex items-center gap-2.5 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg text-sm transition-all mb-1"
+                initial={{ x: 30, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0 }}
+              >
+                <FiSearch className="w-4 h-4 shrink-0" />
+                <span className="flex-1 text-left">Search</span>
+                <span className="flex items-center gap-0.5 opacity-50">
+                  <kbd className="px-1 py-0.5 rounded text-[9px] bg-slate-800 border border-slate-700 font-mono">⌘K</kbd>
+                </span>
+              </motion.button>
+
+              <div className="h-px bg-slate-800/60 mx-2 mb-2" />
+
               {LINKS.map(({ label, id }, i) => (
                 <motion.button
                   key={id}
@@ -134,7 +176,7 @@ export default function Navbar() {
                   className="text-left px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 rounded-lg text-sm transition-all"
                   initial={{ x: 30, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={{ delay: (i + 1) * 0.05 }}
                 >
                   {label}
                 </motion.button>
@@ -147,7 +189,7 @@ export default function Navbar() {
                 className="mt-4 flex items-center gap-2 px-4 py-2.5 text-indigo-400 border border-indigo-500/40 hover:border-indigo-400/70 hover:bg-indigo-500/8 rounded-lg text-sm transition-all"
                 initial={{ x: 30, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.28 }}
+                transition={{ delay: 0.38 }}
               >
                 <FiFileText className="w-4 h-4" /> View Resume
               </motion.button>

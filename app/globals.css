@@ -221,6 +221,19 @@ html:not(.dark) .card:hover {
 }
 
 /* ═══════════════════════════════════════════════════
+   CMDK — Command Palette
+   ═══════════════════════════════════════════════════ */
+[cmdk-group-heading] {
+  color: rgb(var(--text-muted));
+}
+[cmdk-item][data-selected="true"] {
+  background-color: rgba(99,102,241,0.10);
+}
+[cmdk-item][data-selected="true"] .cmdk-arrow {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════════════
    KEYFRAMES
    ═══════════════════════════════════════════════════ */
 @keyframes blink  { 0%,100% { opacity: 1 } 50% { opacity: 0 } }
