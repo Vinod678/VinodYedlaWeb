@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import { HiSun, HiMoon } from 'react-icons/hi'
 import { RiMenuLine, RiCloseLine } from 'react-icons/ri'
-import { FiDownload } from 'react-icons/fi'
+import { FiFileText } from 'react-icons/fi'
 import { personalInfo } from '@/lib/data'
 
 const LINKS = [
@@ -92,14 +92,13 @@ export default function Navbar() {
               </button>
             )}
 
-            <a
-              href={personalInfo.resumeUrl}
-              download
-              className="hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10 transition-all"
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-resume'))}
+              className="hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold rounded-lg border border-indigo-500/50 text-indigo-400 hover:bg-indigo-500/10 hover:border-indigo-400/70 transition-all"
             >
-              <FiDownload className="w-3.5 h-3.5" />
+              <FiFileText className="w-3.5 h-3.5" />
               Resume
-            </a>
+            </button>
 
             <button
               onClick={() => setOpen(!open)}
@@ -140,16 +139,18 @@ export default function Navbar() {
                   {label}
                 </motion.button>
               ))}
-              <motion.a
-                href={personalInfo.resumeUrl}
-                download
-                className="mt-4 flex items-center gap-2 px-4 py-2.5 text-indigo-400 border border-indigo-500/40 rounded-lg text-sm"
+              <motion.button
+                onClick={() => {
+                  setOpen(false)
+                  setTimeout(() => window.dispatchEvent(new CustomEvent('open-resume')), 150)
+                }}
+                className="mt-4 flex items-center gap-2 px-4 py-2.5 text-indigo-400 border border-indigo-500/40 hover:border-indigo-400/70 hover:bg-indigo-500/8 rounded-lg text-sm transition-all"
                 initial={{ x: 30, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.28 }}
               >
-                <FiDownload className="w-4 h-4" /> Download Resume
-              </motion.a>
+                <FiFileText className="w-4 h-4" /> View Resume
+              </motion.button>
             </motion.nav>
           </motion.div>
         )}

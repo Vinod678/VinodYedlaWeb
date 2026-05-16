@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { FiGithub, FiLinkedin, FiMail, FiDownload, FiArrowRight, FiMapPin } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiMail, FiFileText, FiArrowRight, FiMapPin } from 'react-icons/fi'
 import { personalInfo } from '@/lib/data'
 
 const ROLES = ['Senior Software Engineer', 'Java Developer', 'Backend Architect', 'Cloud-Native Engineer']
@@ -145,13 +145,12 @@ export default function Hero() {
               >
                 View Projects <FiArrowRight className="w-4 h-4" />
               </button>
-              <a
-                href={personalInfo.resumeUrl}
-                download
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('open-resume'))}
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border border-slate-700 text-slate-300 hover:border-indigo-500/60 hover:text-white text-sm font-semibold transition-all hover:-translate-y-px"
               >
-                <FiDownload className="w-4 h-4" /> Resume
-              </a>
+                <FiFileText className="w-4 h-4" /> Resume
+              </button>
             </motion.div>
 
             {/* Social + location */}

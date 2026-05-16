@@ -249,7 +249,7 @@ export default function Contact() {
                       <input
                         type={field === 'email' ? 'email' : 'text'}
                         required
-                        placeholder={field === 'name' ? 'Vinod Yedla' : 'vinod@gmail.com'}
+                        placeholder={field === 'name' ? 'Your Name' : 'yourname@example.com'}
                         value={form[field]}
                         onChange={e => setForm({ ...form, [field]: e.target.value })}
                         className="w-full px-4 py-2.5 rounded-lg border text-sm

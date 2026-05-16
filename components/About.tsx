@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FiArrowRight, FiDownload, FiCode, FiServer, FiCloud, FiUsers } from 'react-icons/fi'
+import { FiArrowRight, FiFileText, FiCode, FiServer, FiCloud, FiUsers } from 'react-icons/fi'
 import { personalInfo } from '@/lib/data'
 
 const VP = { once: true, margin: '-60px' } as const
@@ -47,13 +47,12 @@ export default function About() {
               best code is the code no one has to maintain — clear, purposeful, and testable.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a
-                href={personalInfo.resumeUrl}
-                download
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('open-resume'))}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition-all hover:-translate-y-px hover:shadow-[0_0_16px_rgba(99,102,241,0.3)]"
               >
-                <FiDownload className="w-4 h-4" /> Download Resume
-              </a>
+                <FiFileText className="w-4 h-4" /> View Resume
+              </button>
               <button
                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-slate-700 text-slate-300 hover:border-indigo-500/50 hover:text-white text-sm font-semibold transition-all hover:-translate-y-px"
