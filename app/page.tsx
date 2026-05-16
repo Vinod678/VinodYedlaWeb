@@ -7,10 +7,12 @@ import Skills from '@/components/Skills'
 import Education from '@/components/Education'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
+import ScrollProgress from '@/components/ScrollProgress'
 
 export default function Home() {
   return (
-    <main className="dark:bg-slate-950 bg-slate-50 min-h-screen overflow-x-hidden">
+    <main className="bg-bg min-h-screen overflow-x-hidden">
+      <ScrollProgress />
       <Navbar />
       <Hero />
       <About />

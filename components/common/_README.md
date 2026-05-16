@@ -1,3 +1,0 @@
-/**
- * Common, reusable UI components
- */

@@ -2,26 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Scrollbar ─────────────────────────────────── */
-::-webkit-scrollbar        { width: 4px; }
-::-webkit-scrollbar-track  { background: #0b0b14; }
-::-webkit-scrollbar-thumb  { background: #3730a3; border-radius: 2px; }
+/* ═══════════════════════════════════════════════════
+   CSS CUSTOM PROPERTIES — drives every bg/border color
+   ═══════════════════════════════════════════════════ */
 
-/* ── Selection ──────────────────────────────────── */
-::selection { background: rgba(99,102,241,0.3); color: #f1f5f9; }
+/* Light theme */
+:root {
+  --color-bg:       250 251 255;   /* near-white, faint indigo tint        */
+  --color-surface:  242 245 255;   /* slightly distinct panel bg            */
+  --color-card:     255 255 255;   /* pure white cards                      */
+  --color-line:     220 228 245;   /* soft blue-tinted border               */
+  --color-muted:    208 218 240;   /* muted bg — progress tracks, chips     */
 
-/* ── Scroll behaviour ───────────────────────────── */
-html { scroll-behavior: smooth; }
-
-/* ── Base ───────────────────────────────────────── */
-body {
-  background: #0b0b14;
-  color: #e2e8f0;
+  --text-primary:    15  23  42;   /* slate-900                             */
+  --text-secondary:  51  65  85;   /* slate-700 — strong readable secondary */
+  --text-muted:     100 116 139;   /* slate-500                             */
 }
 
-/* ── Design tokens ──────────────────────────────── */
+/* Dark theme */
+.dark {
+  --color-bg:       11  11  20;    /* #0b0b14  */
+  --color-surface:  17  17  30;    /* #11111e  */
+  --color-card:     22  22  42;    /* #16162a  */
+  --color-line:     30  30  54;    /* #1e1e36  */
+  --color-muted:    42  42  72;    /* #2a2a48  */
+
+  --text-primary:   226 232 240;   /* slate-200 */
+  --text-secondary: 148 163 184;   /* slate-400 */
+  --text-muted:     100 116 139;   /* slate-500 */
+}
+
+/* ═══════════════════════════════════════════════════
+   BASE RESET
+   ═══════════════════════════════════════════════════ */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: rgb(var(--color-bg));
+  color: rgb(var(--text-primary));
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════ */
+::-webkit-scrollbar              { width: 4px; }
+::-webkit-scrollbar-track        { background: rgb(var(--color-bg)); }
+::-webkit-scrollbar-thumb        { background: #4f46e5; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover  { background: #6366f1; }
+
+/* ═══════════════════════════════════════════════════
+   SELECTION
+   ═══════════════════════════════════════════════════ */
+::selection { background: rgba(99,102,241,0.25); color: inherit; }
+
+/* ═══════════════════════════════════════════════════
+   FOCUS
+   ═══════════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid rgba(99,102,241,0.65);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════════════════
+   UTILITY CLASSES  (@layer utilities)
+   ═══════════════════════════════════════════════════ */
 @layer utilities {
-  /* Gradient text — used only on key accent words */
+
+  /* ── Gradient text ── */
   .grad {
     background: linear-gradient(135deg, #818cf8 0%, #67e8f9 100%);
     -webkit-background-clip: text;
@@ -29,38 +83,150 @@ body {
     background-clip: text;
   }
 
-  /* Standard section card */
+  /* ── Cards ── */
   .card {
-    background: #16162a;
-    border: 1px solid #1e1e36;
+    background-color: rgb(var(--color-card));
+    border: 1px solid rgb(var(--color-line));
     border-radius: 1rem;
-    transition: border-color 0.25s, box-shadow 0.25s;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
   }
   .card:hover {
     border-color: rgba(99,102,241,0.45);
-    box-shadow: 0 0 24px rgba(99,102,241,0.08);
+    box-shadow: 0 0 28px rgba(99,102,241,0.08), 0 4px 20px rgba(0,0,0,0.10);
   }
 
-  /* Section label above headings */
+  /* ── Glass card ── */
+  .glass {
+    background: rgb(var(--color-card) / 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgb(var(--color-line) / 0.6);
+    border-radius: 1rem;
+  }
+
+  /* ── Section label ── */
   .section-label {
     @apply font-mono text-indigo-400 text-xs tracking-[0.2em] uppercase mb-3 block;
   }
 
-  /* Section title */
+  /* ── Section title (theme-aware) ── */
   .section-title {
-    @apply text-3xl lg:text-4xl font-bold text-white mb-4;
+    @apply text-2xl sm:text-3xl lg:text-4xl font-bold mb-4;
+    color: rgb(var(--text-primary));
   }
 
-  /* Subtle horizontal rule accent */
+  /* ── Decorative gradient rule ── */
   .rule {
     @apply w-12 h-0.5 bg-gradient-to-r from-indigo-500 to-cyan-400 rounded-full mt-1 mb-10;
   }
 
-  /* Tech badge */
+  /* ── Tech badge ── */
   .badge {
-    @apply px-2.5 py-0.5 text-[11px] font-mono rounded-md bg-indigo-500/10 text-indigo-300 border border-indigo-500/20;
+    @apply px-2.5 py-0.5 text-[11px] font-mono rounded-md
+           bg-indigo-500/10 text-indigo-500 border border-indigo-500/20;
   }
 
-  /* Section spacing */
-  .section-pad { @apply py-20 lg:py-28; }
+  /* ── Section padding — responsive ── */
+  .section-pad { @apply py-16 sm:py-20 lg:py-28; }
+
+  /* ── Container shorthand ── */
+  .container-xl {
+    @apply max-w-6xl mx-auto px-4 sm:px-6;
+  }
 }
+
+/* ═══════════════════════════════════════════════════
+   LIGHT MODE — comprehensive colour overrides
+   ═══════════════════════════════════════════════════ */
+
+/* ── Base text hierarchy ── */
+html:not(.dark) .text-white,
+html:not(.dark) .text-slate-50,
+html:not(.dark) .text-slate-100  { color: rgb(var(--text-primary)); }
+
+html:not(.dark) .text-slate-200,
+html:not(.dark) .text-slate-300  { color: rgb(var(--text-secondary)); }
+
+html:not(.dark) .text-slate-400  { color: rgb(71 85 105); }   /* slate-600 */
+
+html:not(.dark) .text-slate-500,
+html:not(.dark) .text-slate-600  { color: rgb(100 116 139); } /* slate-500 */
+
+/* ── Indigo — shift to indigo-600 (#4f46e5) for light-bg contrast ── */
+html:not(.dark) .text-indigo-200,
+html:not(.dark) .text-indigo-300,
+html:not(.dark) .text-indigo-400  { color: #4f46e5; }
+
+/* ── Cyan — shift to cyan-600 (#0891b2) ── */
+html:not(.dark) .text-cyan-200,
+html:not(.dark) .text-cyan-300,
+html:not(.dark) .text-cyan-400    { color: #0891b2; }
+
+/* ── Violet — shift to violet-600 (#7c3aed) ── */
+html:not(.dark) .text-violet-200,
+html:not(.dark) .text-violet-300,
+html:not(.dark) .text-violet-400  { color: #7c3aed; }
+
+/* ── Emerald — shift to emerald-600 (#059669) ── */
+html:not(.dark) .text-emerald-300,
+html:not(.dark) .text-emerald-400 { color: #059669; }
+
+/* ── Amber — shift to amber-700 (#b45309) ── */
+html:not(.dark) .text-amber-300,
+html:not(.dark) .text-amber-400   { color: #b45309; }
+
+/* ── Preserve white text on solid coloured-button backgrounds ─────────────
+   Equal specificity to the overrides above; placed later so it wins for
+   elements that simultaneously have e.g. bg-indigo-600 and text-white.   ── */
+html:not(.dark) [class~="bg-indigo-600"],
+html:not(.dark) [class~="bg-indigo-500"],
+html:not(.dark) [class~="bg-emerald-600"],
+html:not(.dark) [class~="bg-red-600"]      { color: #ffffff; }
+
+/* ── Hover: standard text ── */
+html:not(.dark) .hover\:text-white:hover       { color: rgb(var(--text-primary)); }
+html:not(.dark) .hover\:text-indigo-400:hover,
+html:not(.dark) .hover\:text-indigo-300:hover  { color: #4f46e5; }
+html:not(.dark) .hover\:text-indigo-200:hover  { color: #4338ca; }
+
+/* ── Group hover: text states ── */
+html:not(.dark) .group:hover .group-hover\:text-white       { color: rgb(var(--text-primary)); }
+html:not(.dark) .group:hover .group-hover\:text-indigo-300  { color: #4338ca; }
+html:not(.dark) .group:hover .group-hover\:text-indigo-200  { color: #4338ca; }
+
+/* ── Hover: background ── */
+html:not(.dark) .hover\:bg-white\/5:hover { background-color: rgba(99,102,241,0.06); }
+
+/* ── Borders that would look too heavy on light backgrounds ── */
+html:not(.dark) .border-slate-700,
+html:not(.dark) .border-slate-800 { border-color: rgb(var(--color-line)); }
+
+/* ── Dark bg utilities used as decoration / progress tracks ── */
+html:not(.dark) .bg-slate-800,
+html:not(.dark) .bg-slate-900 { background-color: rgb(var(--color-muted)); }
+
+/* ── Invisible border on light bg (Skills category header) ── */
+html:not(.dark) .border-white\/5 { border-color: rgb(var(--color-line)); }
+
+/* ── Badge: light-mode tint ── */
+html:not(.dark) .badge {
+  background: rgba(79,70,229,0.08);
+  color: #4338ca;
+  border-color: rgba(79,70,229,0.22);
+}
+
+/* ── Card: lighter, crisper shadow in light mode ── */
+html:not(.dark) .card:hover {
+  box-shadow: 0 0 0 1px rgba(99,102,241,0.18), 0 8px 28px rgba(15,23,42,0.07);
+}
+
+/* ═══════════════════════════════════════════════════
+   KEYFRAMES
+   ═══════════════════════════════════════════════════ */
+@keyframes blink  { 0%,100% { opacity: 1 } 50% { opacity: 0 } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes ping   { 75%,100% { transform: scale(2); opacity: 0 } }
+
+.animate-blink { animation: blink 1s step-end infinite; }
+.animate-ping  { animation: ping 1.4s cubic-bezier(0,0,0.2,1) infinite; }

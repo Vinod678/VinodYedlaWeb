@@ -7,15 +7,25 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'sw
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains', display: 'swap' })
 
 export const metadata: Metadata = {
-  title: 'Vinod Yedla | Software Engineer',
-  description: 'Backend Software Engineer with 4+ years of experience in Java, Spring Boot, and cloud-native architectures at Infosys.',
-  keywords: ['Vinod Yedla', 'Software Engineer', 'Backend Developer', 'Java', 'Spring Boot', 'Portfolio'],
+  title: 'Vinod Yedla | Senior Software Engineer',
+  description:
+    'Senior Software Engineer with 4+ years of experience in Java, Spring Boot, and cloud-native architectures. Currently at ADP, previously at Infosys delivering enterprise backend systems.',
+  keywords: [
+    'Vinod Yedla', 'Software Engineer', 'Java Developer', 'Backend Engineer',
+    'Spring Boot', 'Microservices', 'Cloud Native', 'ADP', 'Infosys', 'Portfolio',
+  ],
   authors: [{ name: 'Vinod Yedla' }],
   metadataBase: new URL('https://vinodyedla.vercel.app'),
   openGraph: {
-    title: 'Vinod Yedla | Software Engineer',
-    description: 'Backend Software Engineer — Java · Spring Boot · Cloud Native',
+    title: 'Vinod Yedla | Senior Software Engineer',
+    description: 'Senior Software Engineer — Java · Spring Boot · Cloud Native · Microservices',
     type: 'website',
+    url: 'https://vinodyedla.vercel.app',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Vinod Yedla | Senior Software Engineer',
+    description: 'Senior Software Engineer — Java · Spring Boot · Cloud Native',
   },
   robots: { index: true, follow: true },
 }
